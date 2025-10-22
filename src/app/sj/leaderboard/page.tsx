@@ -95,7 +95,6 @@ export default function LeaderboardPage() {
           {/* Header Section */}
           <div className="mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
             <h1 className="mb-2 flex items-center gap-3 text-3xl font-bold text-foreground sm:text-4xl">
-              <Trophy className="h-8 w-8 text-yellow-500 sm:h-10 sm:w-10" />
               Study Jams Leaderboard
             </h1>
             <p className="text-muted-foreground text-base sm:text-lg">
