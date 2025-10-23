@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
+import Papa from "papaparse";
 import Header from "@/components/Header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -12,50 +13,46 @@ export default function LeaderboardPage() {
   const [participants, setParticipants] = useState<Participant[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useMemo(() => {
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch("/data.csv");
         const text = await response.text();
-        const lines = text.split("\n");
 
-        const data: Participant[] = [];
+        // Use PapaParse to properly parse CSV
+        Papa.parse<Record<string, string>>(text, {
+          header: true,
+          skipEmptyLines: true,
+          complete: (results) => {
+            const data: Participant[] = results.data
+              .map((row) => ({
+                name: row["User Name"] || "",
+                email: row["User Email"] || "",
+                profileUrl: row["Google Cloud Skills Boost Profile URL"] || "",
+                redemptionStatus: row["Access Code Redemption Status"] || "",
+                allCompleted: row["All Skill Badges & Games Completed"] || "",
+                skillBadges: parseInt(row["# of Skill Badges Completed"]) || 0,
+                arcadeGames: parseInt(row["# of Arcade Games Completed"]) || 0,
+              }))
+              .filter((p) => p.name.trim() !== ""); // Filter out empty rows
 
-        for (let i = 1; i < lines.length; i++) {
-          if (!lines[i].trim()) continue;
-
-          // Parse CSV line handling quoted fields
-          const regex = /"([^"]*)"|([^,]+)/g;
-          const values: string[] = [];
-          let match;
-
-          while ((match = regex.exec(lines[i])) !== null) {
-            values.push(match[1] || match[2] || "");
-          }
-
-          if (values.length >= 10) {
-            data.push({
-              name: values[0].replace(/^"|"$/g, ""),
-              email: values[1].replace(/^"|"$/g, ""),
-              profileUrl: values[2].replace(/^"|"$/g, ""),
-              redemptionStatus: values[4].replace(/^"|"$/g, ""),
-              allCompleted: values[5].replace(/^"|"$/g, ""),
-              skillBadges: parseInt(values[6]) || 0,
-              arcadeGames: parseInt(values[8]) || 0,
+            // Sort by skill badges (descending), then arcade games (descending)
+            data.sort((a, b) => {
+              if (b.skillBadges !== a.skillBadges) {
+                return b.skillBadges - a.skillBadges;
+              }
+              return b.arcadeGames - a.arcadeGames;
             });
-          }
-        }
 
-        // Sort by skill badges (descending), then arcade games (descending)
-        data.sort((a, b) => {
-          if (b.skillBadges !== a.skillBadges) {
-            return b.skillBadges - a.skillBadges;
-          }
-          return b.arcadeGames - a.arcadeGames;
+            console.log(`Loaded ${data.length} participants from CSV`);
+            setParticipants(data);
+            setLoading(false);
+          },
+          error: (error: Error) => {
+            console.error("Error parsing CSV:", error);
+            setLoading(false);
+          },
         });
-
-        setParticipants(data);
-        setLoading(false);
       } catch (error) {
         console.error("Error loading data:", error);
         setLoading(false);
@@ -65,10 +62,9 @@ export default function LeaderboardPage() {
     fetchData();
   }, []);
 
-  const eligibleCount = useMemo(
-    () => participants.filter((p) => p.allCompleted === "Yes").length,
-    [participants]
-  );
+  const eligibleCount = participants.filter(
+    (p) => p.allCompleted === "Yes"
+  ).length;
 
   const totalCount = participants.length;
 

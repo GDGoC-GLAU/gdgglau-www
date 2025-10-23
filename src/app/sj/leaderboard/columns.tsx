@@ -100,8 +100,8 @@ export const columns: ColumnDef<Participant>[] = [
     cell: ({ row }) => {
       const completed = row.getValue("allCompleted") as string;
       return completed === "Yes" ? (
-        <Badge className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 transition-all shadow-sm">
-          ✨ Eligible
+        <Badge className="bg-green-500 hover:bg-green-600 transition-colors">
+          Eligible
         </Badge>
       ) : (
         <Badge
