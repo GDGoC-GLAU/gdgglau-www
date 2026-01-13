@@ -1,145 +1,133 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Award, Trophy, Users } from "lucide-react";
 import Papa from "papaparse";
-import Header from "@/components/Header";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useEffect, useState } from "react";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 import { Badge } from "@/components/ui/badge";
-import { Trophy, Users, Award } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { columns, type Participant } from "./columns";
 import { DataTable } from "./data-table";
-import { columns, Participant } from "./columns";
 
 export default function LeaderboardPage() {
-  const [participants, setParticipants] = useState<Participant[]>([]);
-  const [loading, setLoading] = useState(true);
+	const [participants, setParticipants] = useState<Participant[]>([]);
+	const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("/data.csv");
-        const text = await response.text();
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const response = await fetch("/data.csv");
+				const text = await response.text();
 
-        // Use PapaParse to properly parse CSV
-        Papa.parse<Record<string, string>>(text, {
-          header: true,
-          skipEmptyLines: true,
-          complete: (results) => {
-            const data: Participant[] = results.data
-              .map((row) => ({
-                name: row["User Name"] || "",
-                email: row["User Email"] || "",
-                profileUrl: row["Google Cloud Skills Boost Profile URL"] || "",
-                redemptionStatus: row["Access Code Redemption Status"] || "",
-                allCompleted: row["All Skill Badges & Games Completed"] || "",
-                skillBadges: parseInt(row["# of Skill Badges Completed"]) || 0,
-                arcadeGames: parseInt(row["# of Arcade Games Completed"]) || 0,
-              }))
-              .filter((p) => p.name.trim() !== ""); // Filter out empty rows
+				// Use PapaParse to properly parse CSV
+				Papa.parse<Record<string, string>>(text, {
+					header: true,
+					skipEmptyLines: true,
+					complete: (results) => {
+						const data: Participant[] = results.data
+							.map((row) => ({
+								name: row["User Name"] || "",
+								email: row["User Email"] || "",
+								profileUrl: row["Google Cloud Skills Boost Profile URL"] || "",
+								redemptionStatus: row["Access Code Redemption Status"] || "",
+								allCompleted: row["All Skill Badges & Games Completed"] || "",
+								skillBadges:
+									Number.parseInt(row["# of Skill Badges Completed"], 10) || 0,
+								arcadeGames:
+									Number.parseInt(row["# of Arcade Games Completed"], 10) || 0,
+							}))
+							.filter((p) => p.name.trim() !== ""); // Filter out empty rows
 
-            // Sort by skill badges (descending), then arcade games (descending)
-            data.sort((a, b) => {
-              if (b.skillBadges !== a.skillBadges) {
-                return b.skillBadges - a.skillBadges;
-              }
-              return b.arcadeGames - a.arcadeGames;
-            });
+						// Sort by skill badges (descending), then arcade games (descending)
+						data.sort((a, b) => {
+							if (b.skillBadges !== a.skillBadges) {
+								return b.skillBadges - a.skillBadges;
+							}
+							return b.arcadeGames - a.arcadeGames;
+						});
 
-            console.log(`Loaded ${data.length} participants from CSV`);
-            setParticipants(data);
-            setLoading(false);
-          },
-          error: (error: Error) => {
-            console.error("Error parsing CSV:", error);
-            setLoading(false);
-          },
-        });
-      } catch (error) {
-        console.error("Error loading data:", error);
-        setLoading(false);
-      }
-    };
+						setParticipants(data);
+						setLoading(false);
+					},
+					error: (error: Error) => {
+						console.error("Error parsing CSV:", error);
+						setLoading(false);
+					},
+				});
+			} catch (error) {
+				console.error("Error loading data:", error);
+				setLoading(false);
+			}
+		};
 
-    fetchData();
-  }, []);
+		fetchData();
+	}, []);
 
-  const eligibleCount = participants.filter(
-    (p) => p.allCompleted === "Yes"
-  ).length;
+	const eligibleCount = participants.filter(
+		(p) => p.allCompleted === "Yes"
+	).length;
 
-  const totalCount = participants.length;
+	const totalCount = participants.length;
 
-  return (
-    <div className="relative min-h-screen w-full bg-[#f8fafc]">
-      {/* Aurora Dream Diagonal Flow */}
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          background: `
-         radial-gradient(ellipse 80% 60% at 5% 40%, rgba(175, 109, 255, 0.48), transparent 67%),
-        radial-gradient(ellipse 70% 60% at 45% 45%, rgba(255, 100, 180, 0.41), transparent 67%),
-        radial-gradient(ellipse 62% 52% at 83% 76%, rgba(255, 235, 170, 0.44), transparent 63%),
-        radial-gradient(ellipse 60% 48% at 75% 20%, rgba(120, 190, 255, 0.36), transparent 66%),
-        linear-gradient(45deg, #f7eaff 0%, #fde2ea 100%)
-      `,
-        }}
-      />
-      <Header />
+	return (
+		<>
+			<Navbar />
 
-      {/* Main Content */}
-      <main className="relative">
-        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-          {/* Header Section */}
-          <div className="mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <h1 className="mb-2 flex items-center gap-3 text-3xl font-bold text-foreground sm:text-4xl">
-              Study Jams Leaderboard
-            </h1>
-            <p className="text-muted-foreground text-base sm:text-lg">
-              Track participant progress and achievements
-            </p>
-          </div>
+			<main className="relative py-20">
+				<div className="mx-auto max-w-7xl px-6 lg:px-8">
+					{/* Header Section */}
+					<div className="fade-in slide-in-from-bottom-4 mb-12 animate-in text-center duration-700">
+						<h1 className="mb-3 font-semibold text-3xl text-foreground tracking-tight lg:text-4xl">
+							Study Jams Leaderboard
+						</h1>
+						<p className="mx-auto max-w-xl text-muted-foreground text-sm">
+							Track participant progress and achievements
+						</p>
+					</div>
 
-          {/* Stats Cards */}
-          <div className="mb-8 grid gap-4 sm:grid-cols-2 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100">
-            <Card className="group border-border/40 bg-card/60 shadow-sm backdrop-blur-xl transition-all hover:shadow-md hover:scale-[1.02]">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Total Participants
-                </CardTitle>
-                <Users className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-primary" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold sm:text-3xl">
-                  {totalCount}
-                </div>
-                <p className="text-xs text-muted-foreground mt-1">
-                  Registered learners
-                </p>
-              </CardContent>
-            </Card>
+					{/* Stats Cards */}
+					<div className="fade-in slide-in-from-bottom-4 mb-12 grid animate-in gap-4 delay-100 duration-700 sm:grid-cols-2">
+						<Card className="group border border-border/40 bg-background/40 backdrop-blur-sm transition-colors hover:bg-background/60">
+							<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+								<CardTitle className="font-medium text-sm">
+									Total Participants
+								</CardTitle>
+								<Users className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-primary" />
+							</CardHeader>
+							<CardContent>
+								<div className="font-bold text-2xl sm:text-3xl">
+									{totalCount}
+								</div>
+								<p className="mt-1 text-muted-foreground text-xs">
+									Registered learners
+								</p>
+							</CardContent>
+						</Card>
 
-            <Card className="group border-border/40 bg-card/60 shadow-sm backdrop-blur-xl transition-all hover:shadow-md hover:scale-[1.02]">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Eligible for Swags
-                </CardTitle>
-                <Award className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-green-600" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-green-600 sm:text-3xl">
-                  {eligibleCount}
-                </div>
-                <p className="text-xs text-muted-foreground mt-1">
-                  {totalCount > 0
-                    ? `${((eligibleCount / totalCount) * 100).toFixed(
-                        1
-                      )}% completion rate`
-                    : "0% completion rate"}
-                </p>
-              </CardContent>
-            </Card>
+						<Card className="group border border-border/40 bg-background/40 backdrop-blur-sm transition-colors hover:bg-background/60">
+							<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+								<CardTitle className="font-medium text-sm">
+									Eligible for Swags
+								</CardTitle>
+								<Award className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-green-600" />
+							</CardHeader>
+							<CardContent>
+								<div className="font-bold text-2xl text-green-600 sm:text-3xl">
+									{eligibleCount}
+								</div>
+								<p className="mt-1 text-muted-foreground text-xs">
+									{totalCount > 0
+										? `${((eligibleCount / totalCount) * 100).toFixed(
+												1
+											)}% completion rate`
+										: "0% completion rate"}
+								</p>
+							</CardContent>
+						</Card>
 
-            {/* Completion Rate - Commented out for now */}
-            {/* <Card className="border-border/40 bg-card/60 shadow-sm backdrop-blur-xl sm:col-span-2 lg:col-span-1">
+						{/* Completion Rate - Commented out for now */}
+						{/* <Card className="border-border/40 bg-card/60 shadow-sm backdrop-blur-xl sm:col-span-2 lg:col-span-1">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   Completion Rate
@@ -155,61 +143,62 @@ export default function LeaderboardPage() {
                 </div>
               </CardContent>
             </Card> */}
-          </div>
+					</div>
 
-          {/* Leaderboard Table */}
-          <Card className="border-border/40 bg-card/60 shadow-sm backdrop-blur-xl animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
-            <CardHeader className="space-y-1">
-              <CardTitle className="text-xl sm:text-2xl">
-                Participant Rankings
-              </CardTitle>
-              <p className="text-sm text-muted-foreground">
-                Click column headers to sort • Search to filter participants
-              </p>
-            </CardHeader>
-            <CardContent>
-              {loading ? (
-                <div className="flex h-64 items-center justify-center">
-                  <div className="flex flex-col items-center gap-3">
-                    <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
-                    <div className="text-muted-foreground">
-                      Loading participants...
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <DataTable columns={columns} data={participants} />
-              )}
-            </CardContent>
-          </Card>
+					{/* Leaderboard Table */}
+					<Card className="fade-in slide-in-from-bottom-4 animate-in border border-border/40 bg-background/40 backdrop-blur-sm delay-200 duration-700">
+						<CardHeader className="space-y-1">
+							<CardTitle className="text-xl sm:text-2xl">
+								Participant Rankings
+							</CardTitle>
+							<p className="text-muted-foreground text-sm">
+								Click column headers to sort • Search to filter participants
+							</p>
+						</CardHeader>
+						<CardContent>
+							{loading ? (
+								<div className="flex h-64 items-center justify-center">
+									<div className="flex flex-col items-center gap-3">
+										<div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+										<div className="text-muted-foreground">
+											Loading participants...
+										</div>
+									</div>
+								</div>
+							) : (
+								<DataTable columns={columns} data={participants} />
+							)}
+						</CardContent>
+					</Card>
 
-          {/* Legend */}
-          <Card className="mt-4 border-border/40 bg-card/60 shadow-sm backdrop-blur-xl animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
-            <CardContent className="pt-6">
-              <div className="flex items-start gap-3">
-                <div className="rounded-full bg-primary/10 p-2">
-                  <Trophy className="h-4 w-4 text-primary" />
-                </div>
-                <div className="flex-1">
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    <strong className="text-foreground">Pro Tip:</strong>{" "}
-                    Participants who have completed all skill badges and games
-                    (marked as{" "}
-                    <Badge
-                      variant="outline"
-                      className="inline-flex mx-1 bg-green-500/10 text-green-700 border-green-500/20"
-                    >
-                      Eligible
-                    </Badge>
-                    ) are eligible for swags. Rankings are sorted by the number
-                    of skill badges completed, followed by arcade games.
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </main>
-    </div>
-  );
+					{/* Legend */}
+					<Card className="fade-in slide-in-from-bottom-4 mt-4 animate-in border border-border/40 bg-background/40 backdrop-blur-sm delay-300 duration-700">
+						<CardContent className="pt-6">
+							<div className="flex items-start gap-3">
+								<div className="rounded-full bg-primary/10 p-2">
+									<Trophy className="h-4 w-4 text-primary" />
+								</div>
+								<div className="flex-1">
+									<p className="text-muted-foreground text-sm leading-relaxed">
+										<strong className="text-foreground">Pro Tip:</strong>{" "}
+										Participants who have completed all skill badges and games
+										(marked as{" "}
+										<Badge
+											className="mx-1 inline-flex border-green-500/20 bg-green-500/10 text-green-700"
+											variant="outline"
+										>
+											Eligible
+										</Badge>
+										) are eligible for swags. Rankings are sorted by the number
+										of skill badges completed, followed by arcade games.
+									</p>
+								</div>
+							</div>
+						</CardContent>
+					</Card>
+				</div>
+			</main>
+			<Footer />
+		</>
+	);
 }
