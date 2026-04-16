@@ -75,19 +75,19 @@ export default function Navbar() {
 					<NavigationMenu className="hidden md:flex">
 						<NavigationMenuList>
 							<NavigationMenuItem>
-								<Link href="/" legacyBehavior passHref>
-									<NavigationMenuLink className={navigationMenuTriggerStyle()}>
+								<NavigationMenuLink asChild>
+									<Link className={navigationMenuTriggerStyle()} href="/">
 										Home
-									</NavigationMenuLink>
-								</Link>
+									</Link>
+								</NavigationMenuLink>
 							</NavigationMenuItem>
 
 							<NavigationMenuItem>
-								<Link href="/#about" legacyBehavior passHref>
-									<NavigationMenuLink className={navigationMenuTriggerStyle()}>
+								<NavigationMenuLink asChild>
+									<Link className={navigationMenuTriggerStyle()} href="/#about">
 										About
-									</NavigationMenuLink>
-								</Link>
+									</Link>
+								</NavigationMenuLink>
 							</NavigationMenuItem>
 
 							<NavigationMenuItem>
@@ -116,19 +116,25 @@ export default function Navbar() {
 							</NavigationMenuItem>
 
 							<NavigationMenuItem>
-								<Link href="/#events" legacyBehavior passHref>
-									<NavigationMenuLink className={navigationMenuTriggerStyle()}>
+								<NavigationMenuLink asChild>
+									<Link
+										className={navigationMenuTriggerStyle()}
+										href="/#events"
+									>
 										Events
-									</NavigationMenuLink>
-								</Link>
+									</Link>
+								</NavigationMenuLink>
 							</NavigationMenuItem>
 
 							<NavigationMenuItem>
-								<Link href="/gallery" legacyBehavior passHref>
-									<NavigationMenuLink className={navigationMenuTriggerStyle()}>
+								<NavigationMenuLink asChild>
+									<Link
+										className={navigationMenuTriggerStyle()}
+										href="/gallery"
+									>
 										Gallery
-									</NavigationMenuLink>
-								</Link>
+									</Link>
+								</NavigationMenuLink>
 							</NavigationMenuItem>
 						</NavigationMenuList>
 					</NavigationMenu>
@@ -155,7 +161,7 @@ export default function Navbar() {
 						<SheetTrigger asChild className="md:hidden">
 							<Button className="h-8 w-8" size="icon" variant="ghost">
 								<Menu className="h-4 w-4" />
-								<span className="sr-only">Menu</span>
+								{/* <span className="sr-only">Menu</span> */}
 							</Button>
 						</SheetTrigger>
 						<SheetContent
