@@ -9,7 +9,7 @@ const events = [
   {
     title: "Incept'26",
     desc: "A specialization-focused session for first-year students exploring multiple tech domains.",
-    img: "/Static/Logo/incept.webp",
+    img: "/Static/Logo/incept26.jpg",
     category: "Session",
   },
   {
