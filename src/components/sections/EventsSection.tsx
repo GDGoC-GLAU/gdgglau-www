@@ -8,6 +8,12 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const events = [
 	{
+		title: "OpenX: Explore | Learn | Contribute",
+		desc: "A session introducing students to open source, with guidance from experienced builders, mentors, and opportunities to contribute.",
+		img: "/Static/Logo/OpenX-2026.jpeg",
+		category: "Session",
+	},
+	{
 		title: "Incept'26",
 		desc: "A specialization-focused session for first-year students exploring multiple tech domains.",
 		img: "/Static/Logo/incept26.png",
