@@ -140,7 +140,7 @@ export default function Navbar() {
 								<NavigationMenuLink asChild>
 									<Link
 										className={navigationMenuTriggerStyle()}
-										href="/gallery"
+										href=""
 									>
 										Alumni
 									</Link>
