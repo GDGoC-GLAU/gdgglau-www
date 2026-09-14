@@ -9,60 +9,67 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const team = [
 	{
-		name: "Shubhang Dixit",
+		name: "Rishabh Chaudhary",
 		role: "GDGoC Organizer",
-		img: "/Static/Logo/shubhang_dixit.webp",
+		img: "/Static/ProfilePictures/DesignTeam/Risabh Choudhry Design Team.jpg",
 		linkedin: "https://www.linkedin.com/in/shubhang-dixit/",
 		teamLink: null,
 	},
 	{
-		name: "Ritee",
-		role: "Vice President / PR Lead",
-		img: "/Static/Logo/ritee_ravi.webp",
-		linkedin: "https://www.linkedin.com/in/ritee-/",
-		teamLink: "/teams/pr",
-	},
-	{
-		name: "Mohammad Almas",
-		role: "Vice President",
-		img: "/Static/Logo/mohammad_almas_mq5KKGT.webp",
-		linkedin: "https://www.linkedin.com/in/mohammad-almas1/",
-		teamLink: null,
-	},
-	{
-		name: "Suryansh Agarwal",
-		role: "General Secretary / Data Lead",
-		img: "/Static/Logo/suryansh_agarwal_QHWAKuW.webp",
-		linkedin: "https://www.linkedin.com/in/suryansh-agarwal-b55232289/",
-		teamLink: "/teams/data",
-	},
-	{
-		name: "Rupam Ganguly",
-		role: "Machine Learning Lead",
-		img: "/Static/Logo/rupam_ganguly_iBpF6Bd.webp",
-		linkedin: "https://www.linkedin.com/in/rupam-ganguly-88329328b/",
-		teamLink: "/teams/ml",
-	},
-	{
-		name: "Shubh Sachar",
-		role: "Design Lead",
-		img: "/Static/Logo/shubh_sachar.webp",
-		linkedin: "https://www.linkedin.com/in/shubh-sachar-baa332292/",
-		teamLink: "/teams/design",
-	},
-	{
-		name: "Nikhil Chauhan",
-		role: "Android Team Lead",
-		img: "/Static/Logo/nikhil_chauhan_JG42kjL.webp",
-		linkedin: "https://www.linkedin.com/in/niikhilchauhann/",
-		teamLink: "/teams/android",
-	},
-	{
 		name: "Saksham Kushwaha",
-		role: "Open Source Lead",
+		role: "Vice President",
 		img: "/Static/Logo/saksham_kushwaha_yn5Hfcd.webp",
 		linkedin: "https://www.linkedin.com/in/sakshamkushwaha/",
-		teamLink: "/teams/opensource",
+		// teamLink: "/teams/pr",
+	},
+	{
+		name: "Aayushman Rai",
+		role: "General Secretary",
+		img: "/Static/ProfilePictures/PRTeam/Ayushman Rai ContentPr team.jpg",
+		linkedin: "https://www.linkedin.com/in/aayushman-rai/",
+		// teamLink: "/teams/data",
+	},
+		{
+		name: "Disha Chaudhary",
+		role: "General Secretary / Data Lead",
+		img: "/Static/Logo/disha_chaudhary.webp",
+		linkedin: "https://www.linkedin.com/in/disha-chaudhary/",
+		// teamLink: "/teams/data",
+	},
+		{
+		name: "Gauri Singh",
+		role: "General Secretary / Data Lead",
+		img: "/Static/Logo/gauri_singh.webp",
+		linkedin: "https://www.linkedin.com/in/gauri-singh-88329328b/",
+		// teamLink: "/teams/data",
+	},
+	{
+		name: "Garv Gupta",
+		role: "Machine Learning Lead",
+		img: "/Static/Logo/garv_gupta.webp",
+		linkedin: "https://www.linkedin.com/in/garv-gupta-88329328b/",
+		// teamLink: "/teams/ml",
+	},
+	{
+		name: "Payal Agarwal",
+		role: "Design Lead",
+		img: "/Static/ProfilePictures/DesignTeam/payal agrawal design team.png",
+		linkedin: "https://www.linkedin.com/in/payal-agarwal-88329328b/",
+		// teamLink: "/teams/design",
+	},
+	{
+		name: "Prakhar Bajpai",
+		role: "Event Lead",
+		img: "/Static/ProfilePictures/PRTeam/Prakhar bajpai pr team.jpg",
+		linkedin: "https://www.linkedin.com/in/prakhar-bajpai-88329328b/",
+		// teamLink: "/teams/event",
+	},
+	{
+		name: "Aakarsh Kashyap",
+		role: "Open Source Lead",
+		img: "/Static/Logo/aakarsh_kashyap.webp",
+		linkedin: "https://www.linkedin.com/in/aakarsh-kashyap/",
+		// teamLink: "/teams/opensource",
 	},
 ];
 
@@ -142,10 +149,10 @@ export default function TeamSection() {
 											size="sm"
 											variant="outline"
 										>
-											<Link href={member.teamLink}>
+											{/* <Link href={member.teamLink}>
 												<Users className="h-3 w-3" />
 												Team
-											</Link>
+											</Link> */}
 										</Button>
 									)}
 								</div>

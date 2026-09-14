@@ -136,6 +136,16 @@ export default function Navbar() {
 									</Link>
 								</NavigationMenuLink>
 							</NavigationMenuItem>
+							<NavigationMenuItem>
+								<NavigationMenuLink asChild>
+									<Link
+										className={navigationMenuTriggerStyle()}
+										href=""
+									>
+										Alumni
+									</Link>
+								</NavigationMenuLink>
+							</NavigationMenuItem>
 						</NavigationMenuList>
 					</NavigationMenu>
 
