@@ -66,7 +66,7 @@ export default function Navbar() {
 							className="h-7 w-auto"
 							height={28}
 							priority
-							src="/Static/Logo/gdg logo.png"
+							src="/gdg-logo.svg"
 							width={105}
 						/>
 					</Link>
@@ -148,10 +148,7 @@ export default function Navbar() {
 							</NavigationMenuItem>
 							<NavigationMenuItem>
 								<NavigationMenuLink asChild>
-									<Link
-										className={navigationMenuTriggerStyle()}
-										href=""
-									>
+									<Link className={navigationMenuTriggerStyle()} href="">
 										Alumni
 									</Link>
 								</NavigationMenuLink>

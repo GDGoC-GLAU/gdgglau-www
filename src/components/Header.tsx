@@ -20,7 +20,7 @@ export default function Header() {
 									className="h-7 w-auto sm:h-9"
 									height={36}
 									priority
-									src="/gdg-logo.png"
+									src="/gdg-logo.svg"
 									width={180}
 								/>
 							</Link>

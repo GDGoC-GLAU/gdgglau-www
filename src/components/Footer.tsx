@@ -1,8 +1,8 @@
 import { MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { MdiInstagram } from "@/components/icons/MdiInstagram";
 import { LineMdLinkedin } from "@/components/icons/LineMdLinkedin";
+import { MdiInstagram } from "@/components/icons/MdiInstagram";
 import { RiTwitterXFill } from "@/components/icons/RiTwitterXFill";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -54,7 +54,7 @@ export default function Footer() {
 							alt="GDG Logo"
 							className="h-7 w-auto"
 							height={28}
-							src="/Static/Logo/gdg logo.png"
+							src="/gdg-logo.svg"
 							width={105}
 						/>
 						<p className="text-muted-foreground text-xs leading-relaxed">
