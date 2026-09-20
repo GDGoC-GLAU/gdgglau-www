@@ -1,7 +1,8 @@
-import { ArrowLeft, Database, Linkedin } from "lucide-react";
+import { ArrowLeft, Database } from "lucide-react";
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { LineMdLinkedin } from "@/components/icons/LineMdLinkedin";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -101,7 +102,7 @@ export default function DataTeamPage() {
 										rel="noopener noreferrer"
 										target="_blank"
 									>
-										<Linkedin className="h-3.5 w-3.5" />
+										<LineMdLinkedin className="h-3.5 w-3.5" />
 										LinkedIn
 									</Link>
 								</Button>
@@ -146,7 +147,7 @@ export default function DataTeamPage() {
 												rel="noopener noreferrer"
 												target="_blank"
 											>
-												<Linkedin className="h-3.5 w-3.5" />
+												<LineMdLinkedin className="h-3.5 w-3.5" />
 												LinkedIn
 											</Link>
 										</Button>

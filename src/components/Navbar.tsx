@@ -140,6 +140,16 @@ export default function Navbar() {
 								<NavigationMenuLink asChild>
 									<Link
 										className={navigationMenuTriggerStyle()}
+										href="/connect"
+									>
+										Connect
+									</Link>
+								</NavigationMenuLink>
+							</NavigationMenuItem>
+							<NavigationMenuItem>
+								<NavigationMenuLink asChild>
+									<Link
+										className={navigationMenuTriggerStyle()}
 										href=""
 									>
 										Alumni
@@ -225,6 +235,13 @@ export default function Navbar() {
 									onClick={() => setIsOpen(false)}
 								>
 									Gallery
+								</Link>
+								<Link
+									className="rounded-md px-3 py-2 font-medium text-sm transition-colors hover:bg-muted/30"
+									href="/connect"
+									onClick={() => setIsOpen(false)}
+								>
+									Connect
 								</Link>
 
 								<Button

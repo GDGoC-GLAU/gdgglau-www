@@ -1,7 +1,7 @@
 "use client";
 
-import { Linkedin, Users } from "lucide-react";
 import Link from "next/link";
+import { LineMdLinkedin } from "@/components/icons/LineMdLinkedin";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -24,21 +24,21 @@ const team = [
 	},
 	{
 		name: "Aayushman Rai",
-		role: "General Secretary",
+		role: "General Secretary / Data Lead",
 		img: "/Static/ProfilePictures/PRTeam/Ayushman Rai ContentPr team.jpg",
 		linkedin: "https://www.linkedin.com/in/aayushman-rai/",
 		// teamLink: "/teams/data",
 	},
-		{
+	{
 		name: "Disha Chaudhary",
-		role: "General Secretary / Data Lead",
+		role: "PR Lead",
 		img: "/Static/Logo/disha_chaudhary.webp",
 		linkedin: "https://www.linkedin.com/in/disha-chaudhary/",
 		// teamLink: "/teams/data",
 	},
-		{
+	{
 		name: "Gauri Singh",
-		role: "General Secretary / Data Lead",
+		role: "Content  Lead",
 		img: "/Static/Logo/gauri_singh.webp",
 		linkedin: "https://www.linkedin.com/in/gauri-singh-88329328b/",
 		// teamLink: "/teams/data",
@@ -138,7 +138,7 @@ export default function TeamSection() {
 											rel="noopener noreferrer"
 											target="_blank"
 										>
-											<Linkedin className="h-3 w-3" />
+											<LineMdLinkedin className="h-3 w-3" />
 											LinkedIn
 										</Link>
 									</Button>

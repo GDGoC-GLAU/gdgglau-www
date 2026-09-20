@@ -1,23 +1,26 @@
-import { Instagram, Linkedin, MapPin, Twitter } from "lucide-react";
+import { MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { MdiInstagram } from "@/components/icons/MdiInstagram";
+import { LineMdLinkedin } from "@/components/icons/LineMdLinkedin";
+import { RiTwitterXFill } from "@/components/icons/RiTwitterXFill";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
 const socialLinks = [
 	{
 		name: "Instagram",
-		icon: Instagram,
+		icon: MdiInstagram,
 		href: "https://www.instagram.com/gdgglau/",
 	},
 	{
-		name: "Twitter",
-		icon: Twitter,
-		href: "https://x.com/GdgGlau",
+		name: "X",
+		icon: RiTwitterXFill,
+		href: "https://x.com/GDG_glau",
 	},
 	{
 		name: "LinkedIn",
-		icon: Linkedin,
+		icon: LineMdLinkedin,
 		href: "https://www.linkedin.com/company/gdg-glau/posts/?feedView=all",
 	},
 ];
@@ -27,6 +30,7 @@ const quickLinks = [
 	{ name: "About Us", href: "/#about" },
 	{ name: "Events", href: "/#events" },
 	{ name: "Gallery", href: "/gallery" },
+	{ name: "Connect", href: "/connect" },
 	{ name: "Leaderboard", href: "/sj/leaderboard" },
 ];
 
